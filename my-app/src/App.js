@@ -3,45 +3,32 @@ import logo from './logo.svg';
 import React from 'react';
 import './index.scss'
 
-function App() {
-  const [count, setCount] = React.useState(0);
-  
-  const onClickPlus = () => {
-    setCount(count + 1);
-  }
+const Modal = ({ open, setOpen, children }) => (
+  <div className={`overlay animated ${open ? `show` : ``}`}>
+    <div className='modal'>
+      <svg onClick={() => setOpen(false)} height="200" viewBox="0 0 200 200" width="200">
+        <title />
+        <path d="M114,100l49-49a9.9,9.9,0,0,0-14-14L100,86,51,37A9.9,9.9,0,0,0,37,51l49,49L37,149a9.9,9.9,0,0,0,14,14l49-49,49,49a9.9,9.9,0,0,0,14-14Z" />
+      </svg>
+      {children}
+    </div>
+  </div>
+)
 
-  const onClickMinus = () => {
-    setCount(count - 1);
-  }
+
+function App() {
+  const [open, setOpen] = React.useState(false);
 
   return (
     <div className="App">
-      <div>
-        <h2>Счетчик:</h2>
-        <h1>{count}</h1>
-        <button onClick={onClickMinus} className='minus'>- Минус</button>
-        <button onClick={onClickPlus} className='plus'>Плюс +</button>
-      </div>
+      <button onClick={() => setOpen(true)} className="open-modal-btn">
+        ✨ Открыть окно
+      </button>
+      <Modal open={open} setOpen={setOpen}>
+        <img src="https://media2.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif" />
+        <h3>Это модальное окно</h3>
+      </Modal>
     </div>
-
-    /*
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-    */
   );
 }
 
